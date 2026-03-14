@@ -1,26 +1,31 @@
-# GameBar init script
-# NOTE: Customize these paths for your device's hardware
+# GameBar init script for SDM845 (Beryllium)
 
 on boot
-    # FPS measurement path (adjust paths)
+    # FPS measurement
     chown system graphics /sys/class/drm/sde-crtc-0/measured_fps
     chmod 0660 /sys/class/drm/sde-crtc-0/measured_fps
 
-    # Battery temperature path (adjust paths)
+    # Battery temperature (power_supply)
     chown system system /sys/class/power_supply/battery/temp
     chmod 0660 /sys/class/power_supply/battery/temp
-    
-    
-    # GPU paths (adjust paths)
+
+    # CPU temperature (thermal_zone9 = cpu0-gold-usr)
+    chown system system /sys/class/thermal/thermal_zone9/temp
+    chmod 0660 /sys/class/thermal/thermal_zone9/temp
+
+    # GPU paths
     chown system system /sys/class/kgsl/kgsl-3d0/gpu_busy_percentage
     chmod 0660 /sys/class/kgsl/kgsl-3d0/gpu_busy_percentage
     chown system system /sys/class/kgsl/kgsl-3d0/gpuclk
     chmod 0660 /sys/class/kgsl/kgsl-3d0/gpuclk
     chown system system /sys/class/kgsl/kgsl-3d0/temp
     chmod 0660 /sys/class/kgsl/kgsl-3d0/temp
-    
-    # RAM frequency path (adjust paths)
-    chown system system /sys/devices/system/cpu/bus_dcvs/DDR/cur_freq
-    chmod 0660 /sys/devices/system/cpu/bus_dcvs/DDR/cur_freq
-    
-    
+
+    # RAM frequency (DDR bandwidth via devfreq)
+    chown system system /sys/class/devfreq/soc:qcom,cpu-llcc-ddr-bw/cur_freq
+    chmod 0660 /sys/class/devfreq/soc:qcom,cpu-llcc-ddr-bw/cur_freq
+
+    # RAM temperature (thermal_zone17 = ddr-usr)
+    chown system system /sys/class/thermal/thermal_zone17/temp
+    chmod 0660 /sys/class/thermal/thermal_zone17/temp
+
